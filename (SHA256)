@@ -1,0 +1,128 @@
+🔐 File Hash Generator (SHA256)
+
+A lightweight Python-based tool to generate SHA256 hashes of files for integrity verification and security analysis.
+
+SHA-256 is part of the SHA-2 family developed by the
+National Security Agency
+and produces a 256-bit (64-character) unique hash value.
+
+📁 Project Structure
+file-hash-generator/
+│
+├── hash_generator.py
+├── requirements.txt
+├── README.md
+└── .gitignore
+
+🐍 1️⃣ hash_generator.py
+import hashlib
+import os
+import sys
+
+def generate_sha256(file_path):
+    sha256_hash = hashlib.sha256()
+
+    try:
+        with open(file_path, "rb") as f:
+            for byte_block in iter(lambda: f.read(4096), b""):
+                sha256_hash.update(byte_block)
+
+        return sha256_hash.hexdigest()
+
+    except FileNotFoundError:
+        return "Error: File not found."
+    except PermissionError:
+        return "Error: Permission denied."
+    except Exception as e:
+        return f"Unexpected error: {str(e)}"
+
+
+def main():
+    if len(sys.argv) != 2:
+        print("Usage: python hash_generator.py <file_path>")
+        sys.exit(1)
+
+    file_path = sys.argv[1]
+
+    if not os.path.isfile(file_path):
+        print("Invalid file path.")
+        sys.exit(1)
+
+    print("\n[+] Generating SHA256 Hash...\n")
+    hash_value = generate_sha256(file_path)
+
+    print("SHA256 Hash:")
+    print(hash_value)
+
+
+if __name__ == "__main__":
+    main()
+
+📦 2️⃣ requirements.txt
+# No external dependencies required
+
+📄 3️⃣ README.md (Professional Version)
+# 🔐 File Hash Generator (SHA256)
+
+A simple Python-based CLI tool to generate SHA256 hash values for files.  
+Useful for file integrity verification, malware analysis, and digital forensics.
+
+## 🚀 Features
+- Generates SHA256 hash
+- Handles large files efficiently (chunk reading)
+- Error handling included
+- Lightweight & fast
+- No external dependencies
+
+## 🛠 Installation
+
+```bash
+git clone https://github.com/yourusername/file-hash-generator.git
+cd file-hash-generator
+
+▶ Usage
+python hash_generator.py example.txt
+
+📌 Example Output
+[+] Generating SHA256 Hash...
+
+SHA256 Hash:
+9f86d081884c7d659a2feaa0c55ad015a3bf4f1b2b0b822cd15d6c15b0f00a08
+
+🔐 Applications
+
+Verifying downloaded files
+
+Security research
+
+Malware detection
+
+Digital forensics
+
+👩‍💻 Author
+
+Meenakshy P
+
+
+---
+
+# 📝 4️⃣ .gitignore
+
+
+
+pycache/
+*.pyc
+.env
+
+
+---
+
+# 🎯 How to Upload to GitHub
+
+```bash
+git init
+git add .
+git commit -m "Initial commit - File Hash Generator"
+git branch -M main
+git remote add origin https://github.com/yourusername/file-hash-generator.git
+git push -u origin main
